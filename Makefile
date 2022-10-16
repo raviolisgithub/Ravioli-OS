@@ -25,19 +25,19 @@ bootloader:	stage1 stage2
 
 stage1: $(BUILD_DIR)/stage1.bin
 
-$(BUILD_DIR)/stage1:	always
-	$(MAKE) -C $(SRC_DIR)/bootloader/stage1 BUILD_DIR=%(abspath $(BUILD_DIR))
+$(BUILD_DIR)/stage1: always
+	$(MAKE) -C $(SRC_DIR)/bootloader/stage1 BUILD_DIR=$(abspath $(BUILD_DIR))
 
 stage2: $(BUILD_DIR)/stage2.bin
 
 $(BUILD_DIR)/stage2:	always
-	$(MAKE) -C $(SRC_DIR)/bootloader/stage2 BUILD_DIR=%(abspath $(BUILD_DIR))
+	$(MAKE) -C $(SRC_DIR)/bootloader/stage2 BUILD_DIR=$(abspath $(BUILD_DIR))
 
 # kernel
 kernel: $(BUILD_DIR)/kernel.bin
     
 $(BUILD_DIR)/kernel.bin: always
-	$(MAKE) -C $(SRC_DIR)/kernel BUILD_DIR=%(adspath $(BUILD_DIR))
+	$(MAKE) -C $(SRC_DIR)/kernel BUILD_DIR=$(abspath $(BUILD_DIR))
 
 # tools
 tools_fat:	$(BUILD_DIR)/tools/fat
