@@ -16,4 +16,7 @@
 
 ## Update 1.0 (28/10/2022)
 -Added a lot of c
--Writing our bootloader in C instead of assembly
+-Writing our bootloader in C
+
+## Update 1.1 (28/10/2022)
+-Implenting printf
