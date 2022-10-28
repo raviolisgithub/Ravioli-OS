@@ -1,65 +1,23 @@
-; our os loc
-
-
-org 0x7C00
+; the bits 16 real mode
 bits 16
 
+section _ENTRY class=CODE
 
+extern _cstart_
+global entry
 
-%define ENDL 0x0D, 0x0A
-
-; where shoulf we start
-start:
-    jmp main
-
-
-; where we print our strings
-puts:
-    ; pushing registers
-    push si
-    push ax
-    push bx
-
-.loop:
-    lodsb               
-    or al, al            
-    jz .done
-
-    mov ah, 0x0E        ; call bios interrupt
-    mov bh, 0 
-    int 0x10
-
-    jmp .loop
-
-.done:
-    pop bx
-    pop ax
-    pop si    
-    ret
-    
-
-main:
-    mov ax, 0           
-    mov ds, ax
-    mov es, ax
-    
-    
+entry:
+    cli
+    mov ax, ds
     mov ss, ax
-    mov sp, 0x7C00      
+    mov sp, 0
+    mov bp, sp
+    sti
 
-    ; print hello world message
-    mov si, msg_hello
-    call puts
+    ; expecting bootdrive in dl
+    xor dh, dh
+    push dx
+    call _cstart_
 
+    cli
     hlt
-
-.halt
-    jmp .halt
-
-
-; hworld var
-msg_hello: db 'Hello world!', ENDL, 0
-
-; times func
-times 510-($-$$) db 0
-dw 0AA55h

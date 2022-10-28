@@ -1,4 +1,4 @@
-BUILD_DIR?=build
+BUILD_DIR?=build/
 ASM?=nasm
 
 .PHONY: all clean
